@@ -5,8 +5,10 @@
 #include <math.h>
 #include <stdlib.h>
 
-typedef long itype;
+typedef INTEGER_TYPE itype;
 
 void gelasia_sort(itype *vals, int valn);
+
+int compare (const void * a, const void * b);
 
 #endif

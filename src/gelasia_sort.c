@@ -1,5 +1,10 @@
 #include "gelasia_sort.h"
 
+// Compare function for qsort
+int compare (const void * a, const void * b){
+    return (*(itype*)a-*(itype*)b);
+}
+
 void get_min_max(itype *vals, int valn, itype *min, itype *max){
     // min and max are determinated by the first number.
     *min=vals[0],*max=vals[0];
@@ -11,6 +16,11 @@ void get_min_max(itype *vals, int valn, itype *min, itype *max){
 }
 
 void gelasia_sort(itype *vals, int valn){
+
+    if(valn<32){ // I need to do the math to known the right value for this.
+        qsort(vals,valn,sizeof(itype),compare);
+        return;
+    }
 
     // Return if there aren't values.
     if(valn==0) return;
