@@ -1,10 +1,10 @@
 # gelasia-sort
 Sorting algorithm based on separating the range between the numbers.
 
-Being *r* the range of numbers.
+Being **r** the range of numbers.
 
-The complexity that I can notice so far is slightly (but I mean, really slightly) bigger than *O(r)*,
-and appears to be better than qsort when *n* is larger.
+The complexity that I can notice so far is slightly (but I mean, really slightly) bigger than *O*(r)**,
+and appears to be better than qsort when **n** is larger.
 
 My last output:
 
