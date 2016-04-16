@@ -6,6 +6,11 @@
 
 #include <time.h>
 
+#ifdef INCPP
+#include <algorithm>
+#include <vector>
+#endif
+
 int main(int argc, char const *argv[]) {
 
     // Set random seed.
@@ -17,14 +22,14 @@ int main(int argc, char const *argv[]) {
 
         printf ("running with n=%d\n",valn);
         // Add random numbers to vals;
-        itype *vals= malloc(sizeof(itype)*valn);
+        itype *vals= (itype *) malloc(sizeof(itype)*valn);
         for(int k=0;k<valn;k++) vals[k]= rand();
 
         itype *valscopy;
 
 
         // Test gelasia_sort
-        valscopy= malloc(sizeof(itype)*valn);
+        valscopy= (itype *) malloc(sizeof(itype)*valn);
         for(int k=0;k<valn;k++) valscopy[k]=vals[k];
 
         printf("\tgelasia_sort\n");
@@ -37,7 +42,7 @@ int main(int argc, char const *argv[]) {
 
 
         //Test qsort
-        valscopy= malloc(sizeof(itype)*valn);
+        valscopy= (itype *) malloc(sizeof(itype)*valn);
         for(int k=0;k<valn;k++) valscopy[k]=vals[k];
 
         printf("\tpure qsort\n");
@@ -48,6 +53,19 @@ int main(int argc, char const *argv[]) {
 
         free(valscopy);
 
+        #ifdef INCPP
+        //Test std::sort
+        std::vector<int> valsvector;
+        for(int k=0;k<valn;k++) valsvector.push_back(vals[k]);
+
+        printf("\tpure std::sort\n");
+        tim= clock();
+        std::sort(valsvector.begin(),valsvector.end());
+        tim= clock()-tim;
+        printf("\t\tdone in %li.\n",tim);
+
+        valsvector.clear();
+        #endif
 
         //Duplicate values count
         free(vals);

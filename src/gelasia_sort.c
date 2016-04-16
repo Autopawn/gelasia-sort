@@ -17,10 +17,12 @@ void get_min_max(itype *vals, int valn, itype *min, itype *max){
 
 void gelasia_sort(itype *vals, int valn){
 
+    #ifndef PURE_GELASIA_SORT
     if(valn<32){ // I need to do the math to known the right value for this.
         qsort(vals,valn,sizeof(itype),compare);
         return;
     }
+    #endif
 
     // Return if there aren't values.
     if(valn==0) return;
@@ -43,7 +45,7 @@ void gelasia_sort(itype *vals, int valn){
         sublistn= (int)rangeminus1+1;
     }
     // Prepare the creation of sublistn sublists.
-    int *valn4subs= malloc(sizeof(int)*sublistn);
+    int *valn4subs= (int *) malloc(sizeof(int)*sublistn);
     for(int s=0;s<sublistn;s++) valn4subs[s]=0;
     // Count how many vals will land on each to known how much memory will each need.
     for(int k=0;k<valn;k++){
@@ -53,11 +55,11 @@ void gelasia_sort(itype *vals, int valn){
     }
 
     // Create the rqrst sublists.
-    itype **subvals= malloc(sizeof(itype*)*sublistn);
-    for(int s=0;s<sublistn;s++) subvals[s]= malloc(sizeof(itype)*valn4subs[s]);
+    itype **subvals= (itype **) malloc(sizeof(itype*)*sublistn);
+    for(int s=0;s<sublistn;s++) subvals[s]= (itype*) malloc(sizeof(itype)*valn4subs[s]);
 
     // Create a list to store the count currently added to the list.
-    int *currentvaln4subs= malloc(sizeof(int)*sublistn);
+    int *currentvaln4subs= (int *) malloc(sizeof(int)*sublistn);
     for(int s=0;s<sublistn;s++) currentvaln4subs[s]= 0;
 
     // Distribute the values to the sublists
